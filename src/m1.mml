@@ -1,0 +1,329 @@
+// Clone of M1.BGM (MSX MuSICA)
+// http://www.nicovideo.jp/watch/sm24606813
+//
+// https://github.com/nanakochi123456/msxbgm/blob/master/musica/M1.MSD
+// Use SoundFont : https://github.com/nanakochi123456/sf2_msx_rythm
+// Copyright 1990-2014 by @nanakochi123456
+
+Tempo 150
+
+Int LOOP=5
+
+Function LoopPlay(Str Mml, Int count) {
+	Str _MML
+	For (Int i = 1; i < LOOP + count; i++) {
+		_MML=_MML + #STR(Mml)
+	}
+	_MML
+}
+
+#melody={
+	l8
+	q100
+	[2
+		a4.c c2
+		^2 fgab->
+		c4.<f f2
+		^2.r4
+		b-4.d d2
+		^2 defa
+		g1
+		>c1<
+	]
+	>d4.<f f2
+	^2 fab->d
+	c4.<e egrf
+	^1
+	^1
+	^2<b>dfa
+	g1
+	>c1<
+}
+
+TR(1)
+	o5
+	v127
+	@(Strings1)
+	#TR1={
+		Sub { o6 #melody }
+		o5 #melody
+	}
+	LoopPlay(#TR1)
+
+TR(2)
+	o6
+	v127
+	@(Trumpet)
+	#TR2={
+		#melody
+	}
+	LoopPlay(#TR2)
+
+TR(3)
+	o6
+	v127
+	@(Harpsichord)
+	#TR3={
+		Sub { o6 #melody }
+		o5 #melody
+	}
+	LoopPlay(#TR3)
+
+TR(16)
+	o6
+	v127
+	@(SawtoothLead)
+	#TR3={
+		Sub { o6 #melody }
+		o5 #melody
+	}
+	LoopPlay(#TR3)
+
+TR(4)
+	v127
+	@(GrandPiano)
+	#TR4={
+		Sub { o6 #melody }
+		o5 #melody
+	}
+	LoopPlay(#TR4)
+
+TR(5)
+	@(SynthStrings1)
+	#chord={
+		l1q100o5v80
+		[
+			'<a^>c^f^'
+			'<a^>c^e-^f^'
+			'<b-^>d^f^'
+			'<gb->cf'
+			Sub{'<gb->c'}e2f4g4
+		]
+		'<b-^>d^f^'
+		'<a2>c2e2''<a8>c#8e8''<a8>c#8g8'r8
+		Sub{'<a8^>f8^'}d8^2c2
+		'<b>df'
+		'<g>df'
+		'<gb->cf'
+		Sub{'<gb->c'}e2f4g4
+	}
+	#TR5={
+		#chord
+	}
+	LoopPlay(#TR5)
+
+TR(6)
+	@(SawtoothLead)
+	LoopPlay(#TR5)
+
+TR(7)
+	#t1={
+		l16
+		ff>f<f f>f<ff >f<ff>f< ff>f<f
+	}
+	#t2={
+		l16
+		ee>e<e e>e<ee >e<ee>e< eefg
+	}
+	#t3={
+		l16
+		ee>e<e e>e<ee e8g8r8f8
+	}
+#back={
+	[
+		[7 #t1]
+		#t2
+	]
+	[#t1]
+	#t3
+	[4 #t1]
+	#t2
+}
+
+	@(Harpsichord)
+	q50
+	#TR7={
+		Sub {
+			v90o6
+			#back
+		}
+		v110o7
+		#back
+	}
+	LoopPlay(#TR7)
+
+TR(14)
+	@(GrandPiano)
+	v100o7
+	#TR14={
+		#back
+	}
+	LoopPlay(#TR14)
+
+TR(9)
+	#b1={
+		l16
+		fr>fr<fr>f<f^f>f<ffr>fr<
+	}
+	#b2={
+		l16
+		e-r>e-r<e-r>e-<e-^e->e-<e-e-r>e-r<
+	}
+	#b3={
+		l16
+		dr>dr<dr>d<d^d>d<ddr>dr<
+	}
+	#b4={
+		l16
+		cr>cr<cr>c<c^c>c<ccr>cr<
+	}
+	#b5={
+		l16
+		cr>cr<cr>c<c^c>c<ccr>cc<
+	}
+	#b6={
+		l16
+		<b-r>b-r<b-r>b-<b-^b->b-<b-b-r>b-r
+	}
+	#b7={
+		l16
+		<ar>ar<ar>a<a a8>c#8r8d8
+	}
+	#b8={
+		l16
+		[dr>dr<][cr>cr<]
+		[4 <br>br]
+		<gr>gr <ar>ar <br>br dr>dr<
+	}
+	o3q95v110
+	@(PickBass)
+
+#bass={
+	[
+		[#b1]
+		[#b2]
+		[#b3]
+		#b4 #b5
+	]
+	[#b6]
+	#b7
+	#b8
+	[#b4]
+}
+	#TR9={
+		#bass
+	}
+	LoopPlay(#TR9)
+
+TR(12)
+	o3q95v100
+	@(FretlessBass)
+	LoopPlay(#TR9)
+
+TR(13)
+	o3q95v100
+	@(Harpsichord)
+	LoopPlay(#TR9)
+
+TR(10)
+	v110
+	@(StandardSet)
+	$b{n(Kick1),}
+	$s{n(Snare2),}
+	$h{n(ClosedHiHat),}
+	//$4{n(PedalHiHat),}
+	$o{n(OpenHiHat),}
+
+	#r1={
+		Sub{Rythm{[15 h16]o16}}
+		Rythm{b4s4b4s4}
+	}
+	#r2={
+		Sub{Rythm{[10 h16]o16h16o16h16o16o16}}
+		Rythm{b4s4b8s8'b8s8's16s16}
+	}
+	#r3={
+		Sub{Rythm{[8 h16] h8h4h8}}
+		Rythm{b4s4'b8s8''b4s4''b8s8'}
+	}
+	#TR10={
+		[2
+			[7 #r1]
+			#r2
+		]
+		[#r1]
+		#r3
+		[4 #r1]
+		#r2
+	}
+	LoopPlay(#TR10)
+
+End
+
+# TiMidity Config
+
+
+dir ../patches/guspat/izumo/inst/GUS
+dir ../patches/guspat/izumo/inst/GUS/gsdrum00
+dir ../patches/guspat/izumo/inst/GUS/gsdrum08
+dir ../patches/guspat/izumo/inst/GUS/gsdrum25
+dir ../patches/guspat/izumo/inst/GUS/gsdrum40
+dir ../patches/guspat/izumo/inst/GUS/power
+dir ../patches/guspat/izumo/inst/gusperc
+dir ../patches/guspat/izumo/inst/mazpat
+dir ../patches/guspat/izumo/inst/misc
+dir ../patches/guspat/izumo/inst/orchhit-patch
+dir ../patches/guspat/izumo/inst/release	
+dir ../patches/guspat/izumo/inst/roland
+dir ../patches/guspat/izumo/inst/wime
+dir ../patches/guspat/izumo/inst/wowpats
+dir ../patches/guspat/izumo/inst
+dir ../patches/guspat/izumo
+dir ../patches/sf2_part/drumkit
+dir ../patches/sf2_part/piano
+dir ../patches/sf2_part/chipfont
+dir ../patches/sf2_all
+dir ../patches/sf2_part/famicom
+dir ../patches/sf2_all/atomic
+dir ../patches/sf2_all/fluid3
+dir ../patches/sf2_all/atomic
+dir ../patches/sf2_all/famicom
+dir ../patches/sf2_all/ultimate
+dir ../patches/sf2_all/syuuhou/realgs
+
+bank 0
+
+# strings
+	48 %font "OPL-3 FM 128M.sf2" 0 50 amp=180 rate=255:70:20:90 offset=255:250:50 vibrato=20:186:10
+
+# trumpet
+	56 %font "OPL-3 FM 128M.sf2" 0 57 amp=180 vibrato=18:184:10
+
+# harpchichord
+	6 %font gxscc_gm_033.sf2 0 10 amp=120
+
+# PSG
+	81 %font Famicom.sf2 0 0 amp=90 rate=220:70:20:90 offset=255:250:50 vibrato=24:188:10
+	80 %font Famicom.sf2 0 5 amp=170 rate=220:70:20:90 offset=255:250:50
+
+# Piano
+	0 %font Piano_Yamaha_DX7.sf2 0 0 amp=85
+
+# Synth String
+	51 %font "OPL-3 FM 128M.sf2" 0 40 amp=260 rate=210:1:1:90 offset=:245:242 vibrato=0:185:10
+	50 %font "Musyng original.sf2" 0 48 amp=90
+
+# fbass
+	34 %font "OPL-3 FM 128M.sf2" 0 32 amp=155 tune=-0.1 pan=+40
+	35 %font "OPL-3 FM 128M.sf2" 0 32 amp=155 tune=+0.1 pan=-40
+
+##############################################################################
+# Standard drums
+
+drumset 0
+	36 %font msxrythm.sf2 128 0 36 amp=500
+	40 %font msxrythm.sf2 128 0 38 amp=500
+	42 %font msxrythm.sf2 128 0 42 amp=400
+	46 %font msxrythm.sf2 128 0 46 amp=420
+
+#extension altassign 42 46
